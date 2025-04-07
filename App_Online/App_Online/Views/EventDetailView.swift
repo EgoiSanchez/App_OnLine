@@ -10,30 +10,29 @@ import SwiftUI
 struct EventDetailView: View{
     
     
-    var event: Event
+    var product: Product
     var body: some View {
         
         ScrollView {
-            VStack(alignment: .center, spacing: 20) {
+            VStack(alignment: .center, spacing: 80) {
                 Spacer()
-                Image(systemName: "photo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height:200)
-                    .foregroundStyle(.red)
-                    .opacity(0.5)
-                    .cornerRadius(12)
+                AsyncImage(url: URL(string: product.image)){ image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                    
+                }placeholder: {
+                    Color.gray
+                }.frame(width: 100, height: 100)
                 
                 VStack(alignment: .leading, spacing:10) {
-                    Text(event.title)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                    
-                    Text("descripcion \(event.price)")
+                    Text(product.title)
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    Text("Tipo de evento: \(event.description)")
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                    
+                    
+                    Text("Tipo de evento: \(product.description)")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     
@@ -44,15 +43,16 @@ struct EventDetailView: View{
                             .font(.headline)
                             .padding()
                             .foregroundColor(.white)
-                            .background(Color.blue)
+                            
                             .cornerRadius(10)
                     }
+                    .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
+                            .background(Color.purple)
                     .padding()
                     .background(Color.white)
-                    .cornerRadius(12)
+                    .cornerRadius(30)
                     .shadow(radius: 3)
-                    
-                    Spacer()
+                   
                 }
                 .padding()
             }

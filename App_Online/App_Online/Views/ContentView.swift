@@ -8,54 +8,68 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var eventVM = EventViewModel()
+    @StateObject private var productVM = ProductViewModel()
     
     
     var body: some View {
+        
+      
+        
+        
         NavigationStack {
-            List(eventVM.events){ event in
-                NavigationLink(destination: EventDetailView(event: event)) {
+            List(productVM.products){ product in
+                NavigationLink(destination: EventDetailView(product: product)) {
                     HStack {
-                        Image(systemName: "calendar")
-                            .resizable()
-                            .foregroundStyle(.red)
-                            .opacity(0.5)
-                            .scaledToFit()
-                            .frame(height: 150)
-                            .cornerRadius(10)
-                            .padding(.bottom, 8)
+                        AsyncImage(url: URL(string: product.image)){ image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                            
+                        }placeholder: {
+                            Color.gray
+                        }.frame(width: 60, height: 80)
+                      
+                        
                         
                         VStack(alignment: .leading) {
-                            Text(event.title)
+                            Text(product.title)
                                 .font(.headline)
-                                .foregroundStyle(Color("PrimaryColor"))
+                                .foregroundStyle(Color.black)
                                 .foregroundColor(.primary)
                             
-                            Text(event.price)
+                            Text(String("$\(product.price)"))
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                             
-                            Text("Tipo: \(event.description)")
-                                .font(.footnote)
-                                .foregroundColor(.gray)
                             
-                            Text(Date().formatted())
-                                .font(.footnote)
-                                .foregroundColor(.accentColor)
-                            
+                    
                         }
                         
                         
-                    }.background(Color("PrimaryColor"))
+                    }.background(Color(.white))
                     
                     
                     
                 }
-            }
+            }.onAppear(){ productVM.fetchProducts()}
             
         }
+        
+        TabView {
+                OrderView()
+                    .tabItem {
+                        Image(systemName: "cart")
+                    }
+                    // this also automatically hides the badge when 0
+                   // .badge(order.product.count)
+            }
+        
+        
     }
+
 }
+
+
 
 
 #Preview {

@@ -7,21 +7,30 @@
 
 import SwiftUI
 
-class EventViewModel: ObservableObject {
+class ProductViewModel: ObservableObject {
     
-    @Published var events: [Event] = []
+    @Published var products: [Product] = []
     
-    func fetchEvents () {
+    func fetchProducts () {
         
         guard let url = URL(string: "https://fakestoreapi.com/products") else {return}
         print(url)
         
-        URLSession.shared.dataTask(with: url) {data, response, error in
+        var request = URLRequest(url: url)
+        
+        
+        
+        
+        
+        
+        
+        
+        URLSession.shared.dataTask(with: request) {data, response, error in
             if let data = data {
-                if let decodeResponse = try? JSONDecoder().decode([Event].self, from: data) {
+                if let decodeResponse = try? JSONDecoder().decode([Product].self, from: data) {
                     DispatchQueue.main.async {
-                        self.events = decodeResponse
-                        print(self.events)
+                        self.products = decodeResponse
+                        print(self.products)
                     }
                 }
             }
