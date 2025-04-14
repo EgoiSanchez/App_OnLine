@@ -9,14 +9,14 @@ import SwiftUI
 
 struct EventDetailView: View{
     
-    
-    var product: Product
+    @EnvironmentObject var carroVM: CartViewModel
+    var productVistaEvent: Product
     var body: some View {
         
         ScrollView {
             VStack(alignment: .center, spacing: 80) {
                 Spacer()
-                AsyncImage(url: URL(string: product.image)){ image in
+                AsyncImage(url: URL(string: productVistaEvent.image)){ image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -26,33 +26,34 @@ struct EventDetailView: View{
                 }.frame(width: 100, height: 100)
                 
                 VStack(alignment: .leading, spacing:10) {
-                    Text(product.title)
+                    Text(productVistaEvent.title)
                         .font(.subheadline)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
                     
                     
-                    Text("Tipo de evento: \(product.description)")
+                    Text("Tipo de evento: \(productVistaEvent.description)")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     
                     Button(action: {
-                        print("Boton pulsado")
+                        carroVM.anadirProducto(producto: productVistaEvent)
+                        print(carroVM.ListaCarroProducts)
                     }) {
                         Text("Add to cart")
                             .font(.headline)
                             .padding()
                             .foregroundColor(.white)
-                            
+                        
                             .cornerRadius(10)
                     }
                     .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
-                            .background(Color.purple)
+                    .background(Color.purple)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(30)
                     .shadow(radius: 3)
-                   
+                    
                 }
                 .padding()
             }
@@ -63,8 +64,8 @@ struct EventDetailView: View{
 }
 
 //#Preview{
-   // EventDetailView(event:
-                      //  Event(id:2, title:: "Articulo",
-                        //      event_detail: "Chupa de cuero",
-                             // event_type_id: 1))
+// EventDetailView(event:
+//  Event(id:2, title:: "Articulo",
+//      event_detail: "Chupa de cuero",
+// event_type_id: 1))
 //}
