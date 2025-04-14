@@ -16,10 +16,10 @@ class ProductViewModel: ObservableObject {
         guard let url = URL(string: "https://fakestoreapi.com/products") else {return}
         print(url)
         
-        var request = URLRequest(url: url)
+        let request = URLRequest(url: url)
         
         
-        
+       
         
         
         
