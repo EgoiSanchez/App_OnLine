@@ -36,6 +36,15 @@ struct EventDetailView: View{
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     
+                    HStack(spacing: 5) {
+                        
+                        // el id:\.self es un identificador para darle una clave unico a cada valor (Salio cunadso recorria el array de los botones en el ejercicio de la calculadora)
+                        ForEach(0..<Int(productVistaEvent.rating.rate), id: \.self) { _ in
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                        }
+                    }
+                    
                     Button(action: {
                         carroVM.anadirProducto(producto: productVistaEvent)
                         print(carroVM.ListaCarroProducts)
@@ -53,6 +62,9 @@ struct EventDetailView: View{
                     .background(Color.white)
                     .cornerRadius(30)
                     .shadow(radius: 3)
+                    
+                    
+                    
                     
                 }
                 .padding()
