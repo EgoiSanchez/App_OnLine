@@ -40,7 +40,7 @@ class CartViewModel: ObservableObject {
     
     // cargo datos carro si los hay
     func cargarCArro () {
-        if let carroGuardado = UserDefaults.standard.data(forKey: "carrito") {
+        if let carroGuardado = UserDefaults.standard.data(forKey: "carro") {
             let decoder = JSONDecoder()
             if let productosCarro = try? decoder.decode([Product].self, from: carroGuardado) {
                 ListaCarroProducts = productosCarro

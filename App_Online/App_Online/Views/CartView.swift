@@ -49,7 +49,7 @@ struct CartView: View{
                        }.background(Color(.white))
                        
                    }
-               }//.onAppear(){ carroVM.fetchProducts()}
+               }
                Spacer()
                
                
